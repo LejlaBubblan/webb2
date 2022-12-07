@@ -38,22 +38,22 @@ function init() {
 	for (let i = 0; i < imgElems.length; i++) {
 		imgElems[i].addEventListener("mouseenter", showLargeImg);
 		imgElems[i].addEventListener("mouseleave", hideLargeImg);
-	}
+	} // Kod för att referera till att bilden ska bli större när musen är över bilden och minskas igen till orginal storlek när man tar bort musen. 
 
 	for (let i = 0; i < wordElems.length; i++) {
 		wordElems[i].addEventListener("dragstart", dragstartWord);
 		wordElems[i].addEventListener("dragend", dragendWord);
-	}
+	} // Kod för att kunna dra orden till bilderna. 
 	for (let i = 0; i < answerElems.length; i++) {
 		answerElems[i].addEventListener("dragstart", dragstartWord);
 		answerElems[i].addEventListener("dragend", dragendWord);
-	}
+	} // Kod för att orden ska stanna vid den bild man har dragit ordet till.
 	// Aktivera/inaktivera knappar
 	startGameBtn.disabled = false;
 	for (let i = 0; i < checkAnswersBtn.length; i++) {
 		checkAnswersBtn.disabled = true;
 
-	}
+	} // Kod för att startknappen ska vara tryckbar för att spelet ska startas medans kontrollknappen ska vara oklickbar till man kört klart.
 
 } // Slut init
 window.addEventListener("load", init); // Se till att init aktiveras då sidan är inladdad
@@ -70,7 +70,7 @@ function startGame() {
 		imgElems[i].src = "img/" + ix + ".jpg";
 		tempNrs.splice(r, 1);
 		imgElems[i].id = ix;
-	}
+	} // Kod för slumpmässiga namn och bilder. 
 
 	for (let i = 0; i < 4; i++) {
 		let r = Math.floor(tempNrs.length * Math.random());
@@ -78,7 +78,7 @@ function startGame() {
 		words.push(allWords[ix]);
 		imgElems[i].src = "img/" + ix + ".jpg";
 		tempNrs.splice(r, 1);
-	}
+	} // Kod för det slumpmässiga namnen & bilder bara ska dyka upp en gång under spelets gång. 
 	words.sort();
 	for (let i = 0; i < wordElems.length; i++) {
 		wordElems[i].innerHTML = words[i];
