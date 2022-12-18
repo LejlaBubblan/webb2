@@ -34,6 +34,7 @@ function init() {
 	// Lägg på händelsehanterare
 	startGameBtn.addEventListener("click", startGame);
 	checkAnswersBtn.addEventListener("click", checkAnswers);
+	// Referenser till att klick-funktionerna ska fungera. 
 
 	for (let i = 0; i < imgElems.length; i++) {
 		imgElems[i].addEventListener("mouseenter", showLargeImg);
@@ -84,40 +85,41 @@ function startGame() {
 		wordElems[i].innerHTML = words[i];
 
 		wordElems[i].draggable = true;
-	}
+	} // Kod för att kunna dra orden. 
 
 	for (let i = 0; i < answerElems.length; i++) {
 		answerElems[i].draggable = true;
 		answerElems[i].innerHTML = "";
 		correctElems[i].innerHTML = "";
-	}
+	} // Kod för de rätta orden.
 	msgElem.innerHTML = "";
 
 	startGameBtn.disabled = true;
 	for (let i = 0; i < checkAnswersBtn.length; i++) {
 		checkAnswersBtn.disabled = false;
-	}
+	}  // Kod för att startknappen ska vara tillgänglig medans kontroll-knappen ska vara otryckbar tills spelet är startat.0
 } // Slut startGame
 // --------------------------------------------------
 // Visa förstorad bild
 function showLargeImg() {
 	let img = this.src;
 	largeImgElem.src = img;
-
+	// Funktion för att bilderna ska bli större vid hover.
 } // Slut showLargeImg
 // --------------------------------------------------
 // Ta bort förstorad bild
 function hideLargeImg() {
 	largeImgElem.src = "img/empty.png";
-
+	// Funktion för att bilderna ska återgå till normala ursprunget efter muspekaren dragits bort från bilden.
 } // Slut hideLargeImg
 // --------------------------------------------------
+
 // Kontrollera användarens svar och visa de korrekta svaren
 function checkAnswers() {
 	for (let i = 0; i < answerElems.length; i++) {
 		if (answerElems[i].innerHTML == "") {
 			alert("Dra först ord till alla biler."); return;
-		}
+		} // Meddelande för att man måste fullfölja spelet innan man kan kontrollera svar.
 	}
 	for (let i = 0; i < wordElems.length; i++) {
 		wordElems[i].draggable = false;
@@ -128,24 +130,24 @@ function checkAnswers() {
 
 	let points = 0;
 	for (let i = 0; i < answerElems.length; i++) {
-		let ix = imgElems[i];
+		let ix = imgElems[i].id;
 		if (answerElems[i].innerHTML == allWords[ix]) {
 			points++;
 		}
 		correctElems[i].innerHTML = allWords[ix] + " " + allDescriptions[ix];
 	}
 
-
 	msgElem.innerHTML = "Du hade " + points + " rätt.";
 
 	startGameBtn.disabled = false;
 	checkAnswersBtn.disabled = true;
-
 } // Slut checkAnswers
+
 // --------------------------------------------------
+
 // Spara referens till elementet som dras. Lägg på händelsehanterare för drop zones.
 function dragstartWord() {
-	dragElem = this;
+	dragElem = this; // Referens till "drag"-elementet. 
 	for (let i = 0; i < imgElems.length; i++) {
 		imgElems[i].addEventListener("dragover", wordOverImg);
 		imgElems[i].addEventListener("drop", wordOverImg);
@@ -164,15 +166,17 @@ function dragendWord() {
 	wordListElem.removeEventListener("drop", wordOverList);
 } // Slut dragendWord
 // --------------------------------------------------
+
 // Hantera händelserna dragover och drop, då ett ord släpps över en bild
 // För dragover utförs endast första raden med preventDefault.
 function wordOverImg(e) { // e är Event-objektet
 	e.preventDefault();
 	if (e.type == "drop") {
-		let dropElem = this.nextElementSibling;
+		let dropElem = this.nextElementSibling; // Referent till elementet img-taggen.
+		
 		if (dropElem.innerHTML != "") {
 			moveBackToList(dropElem.innerHTML);
-		}
+		} // Referens för att orden ska "åka" tillbaka till listan om det byter ord i elementet.
 		dropElem.innerHTML = dragElem.innerHTML;
 		dragElem.innerHTML = "";
 	}
