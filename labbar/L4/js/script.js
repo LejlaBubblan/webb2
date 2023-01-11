@@ -77,7 +77,6 @@ function startGame() {
 		let r = Math.floor(tempNrs.length * Math.random());
 		let ix = tempNrs[r];
 		words.push(allWords[ix]);
-		imgElems[i].src = "img/" + ix + ".jpg";
 		tempNrs.splice(r, 1);
 	} // Kod för det slumpmässiga namnen & bilder bara ska dyka upp en gång under spelets gång. 
 	words.sort();
@@ -95,9 +94,8 @@ function startGame() {
 	msgElem.innerHTML = "";
 
 	startGameBtn.disabled = true;
-	for (let i = 0; i < checkAnswersBtn.length; i++) {
-		checkAnswersBtn.disabled = false;
-	}  // Kod för att startknappen ska vara tillgänglig medans kontroll-knappen ska vara otryckbar tills spelet är startat.0
+	checkAnswersBtn.disabled = false;
+	// Kod för att startknappen ska vara tillgänglig medans kontroll-knappen ska vara otryckbar tills spelet är startat.
 } // Slut startGame
 // --------------------------------------------------
 // Visa förstorad bild
@@ -133,8 +131,11 @@ function checkAnswers() {
 		let ix = imgElems[i].id;
 		if (answerElems[i].innerHTML == allWords[ix]) {
 			points++;
+			correctElems[i].innerHTML = allWords[ix] + " " + allDescriptions[ix];
 		}
-		correctElems[i].innerHTML = allWords[ix] + " " + allDescriptions[ix];
+		else {
+			correctElems[i].innerHTML = allWords[ix] + " " + allDescriptions[ix];
+		}
 	}
 
 	msgElem.innerHTML = "Du hade " + points + " rätt.";
